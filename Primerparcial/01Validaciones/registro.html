@@ -3,42 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <title>Registrar Asistencia - CECyT 9</title>
-  <!-- Ruta corregida hacia style.css -->
-  <link rel="stylesheet" href="./CSS/style.css">
+  <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
   <header> 
     <a href="./detalle.html">Volver al Taller</a>
   </header>
+  
   <main> 
+    <form class="formulario-registro" id="formRegistro" novalidate>
 
-    <form class="formulario-registro" id="form-registro"> 
-      <h1>Registrar Asistencia</h1>
+      <h1>Registrar asistencia</h1>
+      
+      <div class="campo">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" name="nombre" required minlength="3">
+        <span class="mensaje-error" id="error-nombre">Ingresa un nombre válido (mínimo 3 letras)</span>
+      </div>
+      
+      <div class="campo">
+        <label for="boleta">Boleta: </label>
+        <input type="text" id="boleta" name="boleta" required pattern="[0-9]{10}">
+        <span class="mensaje-error" id="error-boleta">La boleta debe tener 10 dígitos numéricos</span>
+      </div>
 
-      <label for="nombre">Nombre:</label>
+      <div class="campo">
+        <label for="fecha">Fecha de Registro: </label>
+        <input type="text" id="fecha" name="fecha" placeholder="DD/MM/AAAA" required>
+        <span class="mensaje-error" id="error-fecha"></span>
+      </div>
 
-      <input type="text" id="nombre" name="nombre" class="input-registro" required>
-      <span class="error" id="error-nombre"></span>
+      <button type="submit">Registrar</button>
 
-      <label for="boleta">Número de Boleta:</label>
-
-      <input type="text" id="boleta" name="boleta" class="input-registro" 
-      required pattern="[0-9]{10}">
-      <span class="error" id="error-boleta"></span>
-
-      <label for="fecha">Fecha de Registro (DD/MM/AAAA)</label>
-
-      <input type="text" id="fecha" name="fecha" class="input-registro" placeholder="DD/MM/AAAA" 
-      required pattern="\d{2}/\d{2}/\d{4}">
-      <span class="error" id="error-fecha"></span>
-
-
-      <button type="submit" class="boton-registro">Registrar</button>
-
-
-      <p class="mensaje-exito" id="mensaje-exito"></p> 
+      <p class="mensaje-exito" id="mensajeExito">Registro exitoso :)</p>
     </form>
   </main>
-  <script src="./js/validaciones.js"></script>
+  
+  <script src="js/validaciones.js" defer></script>
+
+
 </body>
 </html>

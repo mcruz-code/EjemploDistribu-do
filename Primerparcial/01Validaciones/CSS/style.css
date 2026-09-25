@@ -274,7 +274,7 @@ table, th, td {
 }
 
 th {
-    background-color: #ff0d6e;
+    background-color: #87cbff;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -293,7 +293,7 @@ a {
 
 a:hover {
     text-decoration: wavy;
-    color: rgb(255, 0, 132);
+    color: rgb(170, 235, 255);
 }
 
 
@@ -374,16 +374,16 @@ main {
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffeefb;
+  background-color: #ffc9f3;
 }
 
 table, th, td {
-    border: 1px solid darkblue;
+    border: 1px solid rgb(0, 3, 79);
     padding: 0.6rem, 0.8rem;
 }
 
 th {
-    background-color: #ff0d6e;
+    background-color: #78c0ff;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -402,7 +402,7 @@ a {
 
 a:hover {
     text-decoration: wavy;
-    color: rgb(255, 0, 132);
+    color: rgb(119, 192, 255);
 }
 * {
     box-sizing: border-box;
@@ -458,7 +458,7 @@ table, th, td {
 }
 
 th {
-    background-color: #ff0d6e;
+    background-color: #69beff;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -477,7 +477,7 @@ a {
 
 a:hover {
     text-decoration: wavy;
-    color: rgb(255, 0, 132);
+    color: rgb(115, 197, 255);
 }
 
 
