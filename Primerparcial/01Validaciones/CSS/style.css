@@ -23,7 +23,7 @@ header a {
 }
 
 header a:hover {
-    color: #ff0090;
+    color: #3590ff;
 }
  
 main {
@@ -70,7 +70,7 @@ footer {
 
 .tarjeta a{
     text-decoration: none;
-    color: #ff0084;
+    color: #3590ff;
 }
 
 /*Detalle*/
@@ -131,7 +131,7 @@ li {
 }
 
 button {
-    background-color: #ff0084;
+    background-color: #3590ff;
     color: #ffff;
     border: none;
     border-radius: 0.4rem;

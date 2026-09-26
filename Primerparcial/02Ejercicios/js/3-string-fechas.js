@@ -1,3 +1,6 @@
+// 03-strings-fechas.js
+// Métodos de string más usados + el objeto Date — conecta con la validación
+// de fecha (DD/MM/AAAA) de la semana 4. Completa cada TODO.
 
 const entrada = '  María López  ';
 
