@@ -5,7 +5,7 @@ const talleres = [
   { nombre: 'Desarrollo Web con JS', instructor: 'Ing. María López', cupo: 25, inscritos: 10 },
 ];
 
-// Función para rellenar la tabla
+// funcion para rellenar la tabla
 function pintarTabla() {
   const tbody = document.querySelector('#tabla-talleres tbody');
   
@@ -29,6 +29,9 @@ function pintarTabla() {
 pintarTabla();
 
 
+
+
+
 // manejar el formulario de arreglos
 const formArreglos = document.getElementById('form-arreglos');
 const resultadoArreglos = document.getElementById('resultado-arreglo');
@@ -41,6 +44,7 @@ formArreglos.addEventListener('submit', (evento) => {
   let resultado;
 
   switch (operacion) {
+    
     // forEach: imprime la lista formateada
     case 'forEach':
       resultado = talleres
@@ -90,51 +94,57 @@ formArreglos.addEventListener('submit', (evento) => {
   resultadoArreglos.textContent = resultado;
 });
 
+
 //segunda parte
 
-const formObjeto = document.getElementById('form-objeto');
-const resultadoObjeto = document.getElementById('resultado-objeto');
+const formObjetos = document.getElementById('form-objetos');
+const resultadoObjetos = document.getElementById('resultado-objetos');
 
-formObjeto.addEventListener('submit', (evento) => {
-    evento.preventDefault();
+formObjetos.addEventListener('submit', (evento) => {
+  evento.preventDefault();
 
-    //construimos el objeto de talleres
-const taller = {
-    nombre : document.getElementById('obj-nombre').value,
-    instructor : document.getElementById('obj-instructor').value,
-    cupo : Number(document.getElementById('obj-cupo').value),
-    inscritos : Number(document.getElementById('obj-inscritos').value)
-};
+  const taller = {
+    nombre: document.getElementById('obj-nombre').value,
+    instructor: document.getElementById(`obj-instructor`).value,
+    cupo: Number(document.getElementById('obj-cupo').value),
+    inscritos: Number(document.getElementById('obj-inscritos').value),
+  };
 
-const operacion = document.getElementById('operacion-objeto').value;
+  const operacion = document.getElementById('operacion-objeto').value;
 
-let resultado;
+  let resultado;
 
- switch(operacion) {
-        case 'keys':
-            resultado = JSON.stringify(Object.keys(taller));
-            break;
-        case 'values':
-            break;
-        case 'entries':
-          //yo
-           resultado = Object.entries(taller).map(([campo,valor]) => ${campo}: ${valor}`).join('\n');
-            break;
-        case 'stringify':
-            break;
-        case 'roundtrip':
-            const textoJson = JSON.stringify(taller, null, 2);
-            const objetoDevuelta = JSON.parse(textoJson);
+  switch (operacion) {
+    case 'keys':
+      resultado = JSON.stringify(Object.keys(taller));
+      break;
 
-            resultado = [
-           '',
-           textoJson,
-           '',
-           `tipo: ${typeof objetoDevuelta}`,
-            objetoDevuelta.nombre
-            ].join('\n');
-            break;
-    }
+    case 'values':
+      resultado = JSON.stringify(Object.values(taller));
+      break;
 
-    resultadoObjeto.textContent = resultado;
+    case 'entries':
+      resultado = object.entries(Object.entries(taller).map(([campo, valor]) => `${campo}: ${valor}`).join('\n'));
+      break;
+
+    case 'stringify':
+      break;
+
+    case 'roundtrip':
+      const textoJson = JSON.stringify(taller, null, 2);
+      const objetoDeVuelta = JSON.parse(textoJson);
+
+      resultado = [
+        '',
+        textoJson,
+        '',
+        `tipo: ${typeof objetoDeVuelta}`,
+        objetoDeVuelta.nombre
+      ].join('\n');
+
+      break;
+  }
+
+  resultadoObjetos.textContent = resultado;
+
 })
