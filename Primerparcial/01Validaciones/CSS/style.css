@@ -480,4 +480,42 @@ a:hover {
     color: rgb(115, 197, 255);
 }
 
+/* Contenedor video */
+.contenedor-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    width: 100%;
+}
 
+/* Estilos para el elemento de video */
+.contenedor-video video {
+    max-width: 200px;         
+    width: 280px;              
+    max-height: 800px;
+    border-radius: 30px;      
+    outline: none;
+}
+
+/* Contenedor del encabezado */
+header {
+    background-color: #2b303a; /* Fondo oscuro similar al de la captura */
+    text-align: center;
+    padding: 12px 0;
+}
+
+/* Estilo base del enlace */
+header a {
+    color: #ffffff;            /* Texto blanco por defecto */
+    text-decoration: none;     /* Quita el subrayado */
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s ease; /* Transición suave del color */
+}
+
+/* Efecto al pasar el ratón (hover) */
+header a:hover {
+    color: #3b82f6;            
+    text-decoration: underline;
+}

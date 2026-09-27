@@ -45,3 +45,28 @@ const disponibles = talleres
   .filter((t) => t.inscritos < t.cupo)
   .map((t) => t.nombre);
 console.log('Talleres con disponibilidad:', disponibles);
+
+// Capturar el formulario o botón de operación
+const formOperacion = document.querySelector('form'); // O el id/clase de tu sección de operación
+const selectOperacion = document.querySelector('select');
+const divResultado = document.getElementById('resultado'); // Div donde se mostrará la salida
+
+formOperacion.addEventListener('submit', (e) => {
+    e.preventDefault(); // Evita que recargue la página y envíe datos por la URL
+    
+    const opcion = selectOperacion.value;
+    divResultado.innerHTML = ''; // Limpiar resultados anteriores
+
+    if (opcion === 'forEach') {
+        // Ejemplo de recorrido con forEach sobre los talleres
+        let contenido = '<ul>';
+        
+        // Asumiendo que 'talleres' es tu arreglo de objetos o datos
+        talleres.forEach(taller => {
+            contenido += `<li><strong>${taller.nombre}</strong> - Instructor: ${taller.instructor}</li>`;
+        });
+        
+        contenido += '</ul>';
+        divResultado.innerHTML = contenido;
+    }
+});
