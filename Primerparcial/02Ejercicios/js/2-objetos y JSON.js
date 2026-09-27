@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (formObjeto) {
     formObjeto.addEventListener('submit', (e) => {
-      e.preventDefault(); // Detiene la recarga de la página
+      e.preventDefault(); 
 
       // Crea el objeto actualizando con los datos del formulario
       const tallerForm = {
@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
           htmlResultado = 'Operación no reconocida.';
       }
 
-      // Imprime el resultado directo en la etiqueta <output>
       if (resultadoObjeto) {
         resultadoObjeto.innerHTML = htmlResultado;
       }
@@ -100,19 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Capturar el formulario o botón de operación
-const formOperacion = document.querySelector('form'); // O el id/clase de tu sección de operación
+
+const formOperacion = document.querySelector('form'); 
 const selectOperacion = document.querySelector('select');
-const divResultado = document.getElementById('resultado'); // Div donde se mostrará la salida
+const divResultado = document.getElementById('resultado');
 
 formOperacion.addEventListener('submit', (e) => {
-    e.preventDefault(); // Evita que recargue la página y envíe datos por la URL
+    e.preventDefault(); 
     
     const opcion = selectOperacion.value;
-    divResultado.innerHTML = ''; // Limpiar resultados anteriores
+    divResultado.innerHTML = ''; 
 
     if (opcion === 'forEach') {
-        // Ejemplo de recorrido con forEach sobre los talleres
+
         let contenido = '<ul>';
         
         // Asumiendo que 'talleres' es tu arreglo de objetos o datos
@@ -124,3 +123,4 @@ formOperacion.addEventListener('submit', (e) => {
         divResultado.innerHTML = contenido;
     }
 });
+
