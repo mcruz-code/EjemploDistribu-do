@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { pedirJSON } from '../../lib/api';
 import TarjetaTaller from '../../components/TarjetaTaller';
 import estilos from '../../styles/Talleres.module.css';
 
+// /talleres: lista de talleres (GET /api/talleres).
 export default function Talleres() {
   const [talleres, setTalleres] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
-  const [busqueda, setBusqueda] = useState(''); // <-- Tu estado del Paso 7
+  const [busqueda, setBusqueda] = useState('');
 
   useEffect(() => {
     cargarTalleres();
@@ -23,7 +24,7 @@ export default function Talleres() {
     }
   }
 
-  // Tu filtro del Paso 7 (filtra por nombre o instructor en tiempo real)
+  // El filtro no vuelve a pedir datos al backend: trabaja sobre el arreglo que ya está en el estado.
   const texto = busqueda.trim().toLowerCase();
   const visibles = talleres.filter((t) =>
     `${t.nombre} ${t.instructor || ''}`.toLowerCase().includes(texto)
@@ -33,31 +34,26 @@ export default function Talleres() {
     <main>
       <h1>Talleres</h1>
 
-      {/* Tu input del buscador (Paso 7) */}
       <input
-        type="text"
+        className={estilos.buscador}
         placeholder="Buscar por nombre o instructor"
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
-        className={estilos.buscador}
       />
 
       {cargando && <p>Cargando talleres…</p>}
       {error && <p className="error">{error}</p>}
-
-      {!cargando && !error && talleres.length === 0 && (
-        <p>No hay talleres registrados.</p>
-      )}
-
-      {!cargando && !error && talleres.length > 0 && visibles.length === 0 && (
-        <p>No hay talleres que coincidan con la búsqueda.</p>
-      )}
 
       <div className={estilos.rejilla}>
         {visibles.map((t) => (
           <TarjetaTaller key={t.id} taller={t} />
         ))}
       </div>
+
+      {!cargando && !error && talleres.length === 0 && <p>No hay talleres registrados.</p>}
+      {!cargando && !error && talleres.length > 0 && visibles.length === 0 && (
+        <p>No hay talleres que coincidan con la búsqueda.</p>
+      )}
     </main>
   );
 }

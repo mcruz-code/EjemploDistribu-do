@@ -1,18 +1,15 @@
 {
-  "name": "primerproyecto",
+  "name": "mini-proyecto-next",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "mcruz-code",
-  "type": "commonjs",
-  "main": "index.js",
+  "description": "Mini-proyecto Next.js del curso (semanas 6-15)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "next": "^16.4.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   }
 }

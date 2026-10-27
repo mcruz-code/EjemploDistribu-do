@@ -1,12 +1,16 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { pedirJSON } from '../lib/api';
-import { validarBoleta } from '../lib/validaciones';
 import { formatearFecha } from '../lib/formato';
+import { validarBoleta } from '../lib/validaciones';
 import estilos from '../styles/Talleres.module.css';
 
+// /perfil — el alumno escribe su boleta y ve sus datos, sus talleres y los talleres con lugar.
+// Todavía no hay login (llega en la semana 10): por eso se busca por boleta.
+// PASO 6: GET /api/usuarios, GET /api/talleres y GET /api/talleres/:id/asistencias (uno por taller).
 export default function Perfil() {
   const [boleta, setBoleta] = useState('');
+
   const [buscada, setBuscada] = useState('');
   const [alumno, setAlumno] = useState(null);
   const [nombreInscrito, setNombreInscrito] = useState('');
@@ -21,20 +25,22 @@ export default function Perfil() {
     setBuscada('');
     const b = boleta.trim();
     if (!validarBoleta(b)) return setError('La boleta debe tener 10 dígitos.');
+
     setCargando(true);
     try {
       const usuarios = await pedirJSON('/usuarios');
       const talleres = await pedirJSON('/talleres');
       
-      // Promise.all pide las asistencias de todos los talleres al mismo tiempo
       const listas = await Promise.all(talleres.map((t) => pedirJSON(`/talleres/${t.id}/asistencias`)));
       const conAsistencias = talleres.map((t, i) => ({ ...t, asistencias: listas[i] }));
+
       const mios = conAsistencias.filter((t) => t.asistencias.some((a) => a.boleta === b));
       const conLugar = conAsistencias.filter(
         (t) => !mios.includes(t) && t.asistencias.length < t.cupo
       );
-
+      // Alguien puede estar inscrito sin tener cuenta: en ese caso se usa el nombre de su inscripción.
       const inscripcion = mios.length > 0 ? mios[0].asistencias.find((a) => a.boleta === b) : null;
+
       setAlumno(usuarios.find((u) => u.boleta === b) || null);
       setNombreInscrito(inscripcion ? inscripcion.nombre_alumno : '');
       setMisTalleres(mios);
@@ -47,16 +53,21 @@ export default function Perfil() {
     }
   }
 
-  const nombre = alumno ? alumno.nombre : nombreInscrito;
-
   return (
     <main>
       <h1>Mi perfil</h1>
       <form onSubmit={buscar} className="formulario">
-        <input placeholder="Tu boleta (10 dígitos)" value={boleta} onChange={(e) => setBoleta(e.target.value)} />
-        <button type="submit" disabled={cargando}>{cargando ? 'Buscando…' : 'Ver mi perfil'}</button>
+        <input
+          placeholder="Tu boleta (10 dígitos)"
+          value={boleta}
+          onChange={(e) => setBoleta(e.target.value)}
+        />
+        <button type="submit" disabled={cargando}>
+          {cargando ? 'Buscando…' : 'Ver mi perfil'}
+        </button>
       </form>
       {error && <p className="error">{error}</p>}
+
       {buscada && (
         <>
           <section className={estilos.panel}>
@@ -75,6 +86,7 @@ export default function Perfil() {
               </p>
             )}
           </section>
+
           <h2>Mis talleres ({misTalleres.length})</h2>
           {misTalleres.length === 0 ? (
             <p>Todavía no estás inscrito en ningún taller.</p>
@@ -87,6 +99,7 @@ export default function Perfil() {
               ))}
             </ul>
           )}
+
           <h2>Talleres con lugar disponible</h2>
           {disponibles.length === 0 ? (
             <p>No hay más talleres con lugar.</p>
@@ -96,8 +109,8 @@ export default function Perfil() {
                 const libres = t.cupo - t.asistencias.length;
                 return (
                   <li key={t.id}>
-                    <Link href={`/talleres/${t.id}`}>{t.nombre}</Link> — {libres} {libres === 1 ? 'lugar' : 'lugares'} ·{' '}
-                    <Link href={`/talleres/${t.id}?boleta=${buscada}&nombre=${encodeURIComponent(nombre)}`}>
+                    {t.nombre} — {libres} {libres === 1 ? 'lugar' : 'lugares'} ·{' '}
+                    <Link href={`/talleres/${t.id}?boleta=${buscada}&nombre=${encodeURIComponent(nombreInscrito || (alumno ? alumno.nombre : ''))}`}>
                       Inscribirme
                     </Link>
                   </li>
